@@ -1,0 +1,47 @@
+seed: 42
+
+data:
+  dataset: "sklearn_digits"
+  output_dir: "data/raw"
+  num_images: 1000
+
+processing:
+  resize: 8
+  normalize: true
+  augment_flip: false
+  test_size: 0.2
+  random_state: 42
+
+
+features:
+  method: "hog"
+  hog_orientations: 9
+  hog_pixels_per_cell: 4
+  hog_cells_per_block: 2
+  k_best: 32
+  use_pca: false
+  pca_components: 32
+  variance_threshold: 0.0001
+
+model:
+  type: "svm"
+  svm_C: 10.0
+  svm_kernel: "rbf"
+  rf_n_estimators: 200
+  rf_max_depth: null
+  lr_C: 1.0
+
+training:
+  model_type: "mlp"
+  hidden_layer_sizes: [128, 64]
+  activation: "relu"
+  solver: "adam"
+  learning_rate_init: 0.001
+  max_iter: 500
+  batch_size: 32
+  random_state: 42
+  alpha: 0.001
+
+evaluation:
+  report_dir: "reports"
+  save_confusion_matrix: true
