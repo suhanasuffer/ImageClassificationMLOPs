@@ -1,0 +1,122 @@
+schema: '2.0'
+stages:
+  data_collection:
+    cmd: python src/data_collection.py
+    deps:
+    - path: params.yaml
+      hash: md5
+      md5: b1dc2987fe18a7619f8281f72ae25c1e
+      size: 744
+      isexec: true
+    - path: src/data_collection.py
+      hash: md5
+      md5: 3d20858e841cc93afec112c65aa42246
+      size: 1076
+      isexec: true
+    outs:
+    - path: data/raw
+      hash: md5
+      md5: f066241946c278e7c6b6c998ffdec4ee.dir
+      size: 509347
+      nfiles: 1798
+  data_preprocessing:
+    cmd: python src/data_preprocessing.py
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: f066241946c278e7c6b6c998ffdec4ee.dir
+      size: 509347
+      nfiles: 1798
+    - path: params.yaml
+      hash: md5
+      md5: b1dc2987fe18a7619f8281f72ae25c1e
+      size: 744
+      isexec: true
+    - path: src/data_preprocessing.py
+      hash: md5
+      md5: d52b0ce983c4d89377b0fad863c7e41a
+      size: 1604
+      isexec: true
+    outs:
+    - path: data/processed
+      hash: md5
+      md5: 7d1dbaf3b49f66120f485624cd016e03.dir
+      size: 1855016
+      nfiles: 4
+  feature_selection:
+    cmd: python src/feature_selection.py
+    deps:
+    - path: data/processed
+      hash: md5
+      md5: 7d1dbaf3b49f66120f485624cd016e03.dir
+      size: 1855016
+      nfiles: 4
+    - path: params.yaml
+      hash: md5
+      md5: b1dc2987fe18a7619f8281f72ae25c1e
+      size: 744
+      isexec: true
+    - path: src/feature_selection.py
+      hash: md5
+      md5: 35bcda273e139ebbab19aa6743ad32b1
+      size: 1186
+      isexec: true
+    outs:
+    - path: data/features
+      hash: md5
+      md5: d59079a8d45a909d9edbcd1205504975.dir
+      size: 985268
+      nfiles: 4
+  model_training:
+    cmd: python src/model_training.py
+    deps:
+    - path: data/features
+      hash: md5
+      md5: d59079a8d45a909d9edbcd1205504975.dir
+      size: 985268
+      nfiles: 4
+    - path: params.yaml
+      hash: md5
+      md5: b1dc2987fe18a7619f8281f72ae25c1e
+      size: 744
+      isexec: true
+    - path: src/model_training.py
+      hash: md5
+      md5: 5f083d0545198005224a0ad4cb19a6fe
+      size: 1090
+      isexec: true
+    outs:
+    - path: models/model.pkl
+      hash: md5
+      md5: 8f6cc3eed56c921132e5fcd375ff9dfd
+      size: 433160
+      isexec: true
+  model_evaluation:
+    cmd: python src/model_evaluation.py
+    deps:
+    - path: data/features
+      hash: md5
+      md5: d59079a8d45a909d9edbcd1205504975.dir
+      size: 985268
+      nfiles: 4
+    - path: models/model.pkl
+      hash: md5
+      md5: 8f6cc3eed56c921132e5fcd375ff9dfd
+      size: 433160
+      isexec: true
+    - path: params.yaml
+      hash: md5
+      md5: b1dc2987fe18a7619f8281f72ae25c1e
+      size: 744
+      isexec: true
+    - path: src/model_evaluation.py
+      hash: md5
+      md5: 65582e8b53da810d70abbf1f2ad61d92
+      size: 1073
+      isexec: true
+    outs:
+    - path: reports/metrics.json
+      hash: md5
+      md5: 31a4a67430c2b92aca933aac06f6465f
+      size: 3898
+      isexec: true
